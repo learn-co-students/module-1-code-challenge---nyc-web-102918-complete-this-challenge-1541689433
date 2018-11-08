@@ -17,6 +17,7 @@ restaurant3 = Restaurant.new("restaurant3")
 
 
 review1 = Review.new(restaurant1, customer1,"great" ,5)
+review4 = Review.new(restaurant1, customer1,"great" ,5)
 review2 = Review.new(restaurant2, customer2, "good",4)
 review3 = Review.new(restaurant3, customer3, "bad",3)
 

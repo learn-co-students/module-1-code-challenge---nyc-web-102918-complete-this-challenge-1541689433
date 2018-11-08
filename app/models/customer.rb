@@ -17,10 +17,14 @@ def self.all
   @@all
 end
 
-def self.find_by_name(customer)
-  Review.all.find do |review|
+def self.all_my_names(customer)
+  Review.all.select do |review|
     review.customer == customer
   end
+end
+
+def self.find_by_name(customer)
+  all_my_names(customer)[0]
 end
 
 def Customer.find_all_by_first_name(name)
@@ -30,17 +34,24 @@ def Customer.find_all_by_first_name(name)
   end
 
   def self.all_names
-    array = []
-    @@all.map do |customer_object|
-      temp =[]
-      temp << customer_object.first_name
-      temp << customer_object.last_name
-      array << temp.join(" ")
+    all.map do |customer|
+      customer.full_name
     end
-    array
   end
 
+def add_review(restaurant, content, rating)
+  Review.new(restaurant, self, content, rating)
+end
 
+def num_reviews
+  Customer.all_my_names(self).count
+end
+
+def restaurants
+  Customer.all_my_names(self).map do |review|
+    review.restaurant
+  end.uniq
+end 
 
 
 
