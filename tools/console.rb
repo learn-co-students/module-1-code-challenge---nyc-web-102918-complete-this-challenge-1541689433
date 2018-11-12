@@ -21,5 +21,6 @@ review4 = Review.new(customer1, restaurant2, 4, "good quality food")
 review5 = Review.new(customer2, restaurant3, 3, "Okay quality food")
 review6 = Review.new(customer3, restaurant1, 1, "Poor quality food")
 
+customer1.add_review("Tangra", 4, "love the food")
 binding.pry
 0 #leave this here to ensure binding.pry isn't the last line

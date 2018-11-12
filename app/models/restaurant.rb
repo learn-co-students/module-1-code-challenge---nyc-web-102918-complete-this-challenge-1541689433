@@ -11,23 +11,28 @@ class Restaurant
     self.all.find { |restaurant| restaurant.name == name }
   end
   def customers
-    Review.all.each  do |review|
-      if review.resturant == self
-
-      review.customer
-    end
+    reviews.map { |review| review.customer }.uniq
   end
-end
     def reviews
-      Review.all.map {|review| review.restaurant == self}
+      Review.all.select { |review| review.restaurant == self}
   end
   def average_star_rating
     sum = 0
     reviews.each do |review|
       sum += review.rating
     end
-    avg = sum / reviews.length
+    avg = (sum / reviews.length * 1.0)
     avg
+  end
+  def longest_review
+    longest = ""
+    contents_arr = reviews.map { |review| review.content }
+    contents_arr.each do |content|
+      if content.length > longest.length
+        longest = content
+      end
+    end
+    longest
   end
 
   def self.all

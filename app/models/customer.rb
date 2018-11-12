@@ -9,8 +9,9 @@ class Customer
   end
   def self.find_by_name(name)
     self.all.find do |customer|
-      full_name = customer.first_name + " " + customer.last_name
-      name == full_name
+      customer.full_name == name
+      # full_name = customer.first_name + " " + customer.last_name
+      # name == full_name
     end
   end
   def self.find_all_by_first_name(name)
@@ -19,8 +20,7 @@ class Customer
 
   def self.all_names
     self.all.map do |customer|
-      full_name = customer.first_name + " " + customer.last_name
-      customer.full_name
+      customer.first_name + " " + customer.last_name
     end
   end
 
@@ -28,10 +28,12 @@ class Customer
     Review.new(self, restaurant, rating, content)
   end
   def num_reviews
-    Review.all.map { |review| review.customer == self}
+    Review.all.select { |review| review.customer == self}.count
+
   end
-  def resturants
-    Review.all.map { |review| review.restaurant}
+  def restaurants
+    my_reviews = Review.all.select { |review| review.customer == self}
+    my_reviews.map { |review| review.restaurant}.uniq 
   end
 
   def self.all
